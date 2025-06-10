@@ -1,0 +1,41 @@
+---
+- name: Déployer l'API
+  hosts: api
+  become: yes
+
+  tasks:
+    - name: Installer Node.js
+      apt:
+        name: nodejs
+        state: present
+
+    - name: Installer npm
+      apt:
+        name: npm
+        state: present
+
+    - name: Installer git
+      apt:
+        name: git
+        state: present
+
+    - name: Cloner ou mettre à jour le repo API
+      git:
+        repo: https://github.com/<ton-utilisateur>/<ton-repo>.git
+        dest: /home/ubuntu/api
+        version: main
+
+    - name: Installer les dépendances
+      npm:
+        path: /home/ubuntu/api
+
+    - name: Installer PM2 globalement
+      npm:
+        name: pm2
+        global: yes
+
+    - name: Démarrer l’API avec PM2
+      shell: |
+        pm2 delete all || true
+        pm2 start /home/ubuntu/api/index.js --name api
+        pm2 save
