@@ -30,6 +30,11 @@ jobs:
         env:
           SSH_KEY: ${{ secrets.SSH_KEY }}
 
+      - name: Ajouter le host à known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H 34.79.156.176 >> ~/.ssh/known_hosts
+
       - name: Lancer le playbook Ansible
         run: |
           ansible-playbook -i ansible/inventory.ini ansible/deploy.yml \
