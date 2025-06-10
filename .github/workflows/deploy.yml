@@ -23,6 +23,15 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
+      - name: Ajouter la clé SSH
+        run: |
+          echo "$SSH_KEY" > /tmp/id_rsa
+          chmod 600 /tmp/id_rsa
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+
       - name: Lancer le playbook Ansible
         run: |
-          ansible-playbook -i ansible/inventory.ini ansible/deploy.yml --ssh-extra-args="-o StrictHostKeyChecking=no"
+          ansible-playbook -i ansible/inventory.ini ansible/deploy.yml \
+            --private-key=/tmp/id_rsa \
+            --ssh-extra-args="-o StrictHostKeyChecking=no"
