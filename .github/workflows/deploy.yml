@@ -18,8 +18,8 @@ jobs:
       - name: Copier la clé SSH
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ma-cle-ssh.pem
-          chmod 600 ~/.ssh/ma-cle-ssh.pem
+          echo "$SSH_PRIVATE_KEY" > /Users/fratia.theo/Desktop/TP_CICD.ssh 
+          chmod 600 /Users/fratia.theo/Desktop/TP_CICD.ssh
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
