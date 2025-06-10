@@ -35,6 +35,11 @@ jobs:
           mkdir -p ~/.ssh
           ssh-keyscan -H 34.79.156.176 >> ~/.ssh/known_hosts
 
+      - name: Vérification de la clé
+        run: |
+          file /tmp/id_rsa
+          head -n 5 /tmp/id_rsa
+
       - name: Lancer le playbook Ansible
         run: |
           ansible-playbook -i ansible/inventory.ini ansible/deploy.yml \
