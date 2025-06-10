@@ -1,3 +1,10 @@
+provider "google" {
+  project     = var.project
+  region      = var.region
+  zone        = var.zone
+  credentials = file("${path.module}/../credentials.json")
+}
+
 resource "google_compute_instance" "api_vm" {
   name         = "api-vm"
   machine_type = "f1-micro"
