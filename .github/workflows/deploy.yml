@@ -1,0 +1,28 @@
+name: Déploiement API
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Installer Ansible
+        run: sudo apt-get update && sudo apt-get install -y ansible
+
+      - name: Copier la clé SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ma-cle-ssh.pem
+          chmod 600 ~/.ssh/ma-cle-ssh.pem
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: Lancer le playbook Ansible
+        run: |
+          ansible-playbook -i ansible/inventory.ini ansible/deploy.yml
