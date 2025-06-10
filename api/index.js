@@ -8,5 +8,5 @@ app.get('/status', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`API disponible sur http://localhost:${PORT}`);
+  console.log(`API disponible sur http://localhost:${PORT}`); 
 });  
