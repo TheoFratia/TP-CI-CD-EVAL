@@ -1,4 +1,4 @@
-name: Déploiement API
+name: Déploiement Ansible
 
 on:
   push:
@@ -7,31 +7,24 @@ on:
 
 jobs:
   deploy:
+    name: Déployer sur le serveur
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout du code
+      - name: Récupérer le code
         uses: actions/checkout@v3
 
-      - name: Installer Ansible
-        run: sudo apt-get update && sudo apt-get install -y ansible
-
-      - name: Copier la clé SSH
+      - name: Configurer la clé SSH
         run: |
           mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ma-cle-ssh.pem
-          chmod 600 ~/.ssh/ma-cle-ssh.pem
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 34.79.156.176 >> ~/.ssh/known_hosts
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Ajouter la clé SSH
-        run: |
-          echo "$SSH_KEY" > /tmp/id_rsa
-          chmod 600 /tmp/id_rsa
-        env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
 
       - name: Lancer le playbook Ansible
         run: |
           ansible-playbook -i ansible/inventory.ini ansible/deploy.yml \
-            --private-key=/tmp/id_rsa \
+            --private-key=~/.ssh/id_rsa \
             --ssh-extra-args="-o StrictHostKeyChecking=no"
