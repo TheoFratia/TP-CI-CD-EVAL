@@ -40,7 +40,7 @@ jobs:
           file /tmp/id_rsa
           head -n 5 /tmp/id_rsa
 
-      - name: Lancer le playbook Ansible
+      - name: Lancer le playbook Ansible 
         run: |
           ansible-playbook -i ansible/inventory.ini ansible/deploy.yml \
             --private-key=/tmp/id_rsa \
