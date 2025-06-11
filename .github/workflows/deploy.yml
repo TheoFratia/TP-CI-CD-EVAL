@@ -33,7 +33,7 @@ jobs:
       - name: Ajouter le host à known_hosts
         run: |
           mkdir -p ~/.ssh
-          ssh-keyscan -H 34.79.156.176 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 34.79.156.176 >> ~/.ssh/known_hosts || true
 
       - name: Vérification de la clé
         run: |
