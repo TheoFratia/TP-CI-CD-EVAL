@@ -57,17 +57,15 @@ Terraform-deploy/
 ## Screenshots
 
 ![Déploiement réussi](./result.png)
+![Grafana](./grafana.png)
 
 ---
 
 # Ce qu’il reste à faire
 
-- **Monitoring & alerting** :
-  - Ajouter une solution de monitoring (Prometheus) pour surveiller l’état de l’API et de l’infrastructure.
 - **Rollback automatisé** :
   - Implémenter une stratégie de rollback automatique en cas d’échec du déploiement.
 - snapshots/ : fichiers ou configuration de snapshot si applicabl@
 - git/: Historique Git avec GitFlo
-- tags/: Versionnement sémantique (ex: v1.0.0)
 
 ---
