@@ -46,6 +46,7 @@ Terraform-deploy/
 - Déclenché à chaque push sur `main`.
 - Étapes :
   - Checkout du code
+  - Génération du tag si on merge sur main
   - Setup de Terraform et authentification GCP
   - Création du fichier `terraform.tfvars`
   - `terraform init` puis `terraform apply`
@@ -57,7 +58,9 @@ Terraform-deploy/
 ## Screenshots
 
 ![Déploiement réussi](./result.png)
+![VM](./vm.png)
 ![Grafana](./grafana.png)
+![Tag](./tag.png)
 
 ---
 
@@ -66,6 +69,6 @@ Terraform-deploy/
 - **Rollback automatisé** :
   - Implémenter une stratégie de rollback automatique en cas d’échec du déploiement.
 - snapshots/ : fichiers ou configuration de snapshot si applicabl@
-- git/: Historique Git avec GitFlo
+- git/: Historique Git avec GitFlow
 
 ---
